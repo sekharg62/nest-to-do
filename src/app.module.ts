@@ -10,10 +10,11 @@ import { StudentModule } from './student/student.module';
 import { CustomerModule } from './customer/customer.module';
 import { EmailService } from './email/email.service';
 import { EmailController } from './email/email.controller';
+import { MynameController } from './myname/myname.controller';
 
 @Module({
   imports: [EmployeeModule, CategoryModule, StudentModule, CustomerModule],
-  controllers: [AppController, UserController, ProductController, EmailController],
+  controllers: [AppController, UserController, ProductController, EmailController, MynameController],
   providers: [AppService, ProductService, EmailService],
 })
 export class AppModule {}
