@@ -16,11 +16,16 @@ import { ExceptionController } from './exception/exception.controller';
 import { LoggerMiddleware } from './middleware/logger/logger.middleware';
 import { DatabaseService } from './database/database.service';
 import { DatabaseController } from './database/database.controller';
+import { ConfigModule } from '@nestjs/config';
+import { EvService } from './ev/ev.service';
+import { EvController } from './ev/ev.controller';
 
 @Module({
-  imports: [EmployeeModule, CategoryModule, StudentModule, CustomerModule],
-  controllers: [AppController, UserController, ProductController, EmailController, MynameController, UserRolesController, ExceptionController, DatabaseController],
-  providers: [AppService, ProductService, EmailService, DatabaseService],
+  imports: [EmployeeModule, CategoryModule, StudentModule, CustomerModule,ConfigModule.forRoot({
+    isGlobal:true
+  })],
+  controllers: [AppController, UserController, ProductController, EmailController, MynameController, UserRolesController, ExceptionController, DatabaseController, EvController],
+  providers: [AppService, ProductService, EmailService, DatabaseService, EvService],
 })
 export class AppModule implements NestModule{
   configure(consumer: MiddlewareConsumer) {
