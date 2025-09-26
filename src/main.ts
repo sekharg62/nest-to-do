@@ -12,5 +12,7 @@ async function bootstrap() {
   }));
   app.use(new LoggerMiddleware().use);
   await app.listen(process.env.PORT ?? 3000);
+  app.enableShutdownHooks();
+  
 }
 bootstrap();
