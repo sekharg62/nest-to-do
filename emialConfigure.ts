@@ -1,7 +1,6 @@
 export const email = {
-    SES_SMTP_HOST: "ddd",
-    SES_SMTP_PORT: 587,
-    SES_SMTP_USER: "demo user",
-    SES_SMTP_PASS: "demo password",
-    SES_EMAIL_FROM: "demo@example.com",
-}
+  AWS_REGION: "region", // your SES region
+  AWS_ACCESS_KEY_ID: "dummy",
+  AWS_SECRET_ACCESS_KEY: "dummy",
+  SES_EMAIL_FROM: "no-reply@example.com", // verified sender email in SES
+};

@@ -5,7 +5,7 @@ import { EmailService } from './email.service';
 export class EmailController {
     constructor(private readonly emailService: EmailService) {}
      @Post('send')
-  async send(@Body() body: { to: string; subject: string; message: string }) {
-    return this.emailService.sendEmail(body.to, body.subject, body.message);
-  }
+  async send(@Body() body: { to: string; subject: string; html: string }) {
+  return this.emailService.sendEmail(body.to, body.subject, body.html);
+}
 }
