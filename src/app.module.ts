@@ -19,16 +19,21 @@ import { DatabaseController } from './database/database.controller';
 import { ConfigModule } from '@nestjs/config';
 import { EvService } from './ev/ev.service';
 import { EvController } from './ev/ev.controller';
+import { MongooseModule } from '@nestjs/mongoose';
+import { TaskModule } from './task/task.module';
 
 @Module({
-  imports: [EmployeeModule, CategoryModule, StudentModule, CustomerModule,ConfigModule.forRoot({
-    isGlobal:true
-  })],
+  imports: [
+    ConfigModule.forRoot(),
+    MongooseModule.forRoot(process.env.MONGO_URI!)
+
+    , EmployeeModule, CategoryModule, StudentModule, CustomerModule, TaskModule,
+  ],
   controllers: [AppController, UserController, ProductController, EmailController, MynameController, UserRolesController, ExceptionController, DatabaseController, EvController],
   providers: [AppService, ProductService, EmailService, DatabaseService, EvService],
 })
-export class AppModule implements NestModule{
+export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-      consumer.apply(LoggerMiddleware)
+    consumer.apply(LoggerMiddleware)
   }
 }
