@@ -21,19 +21,52 @@ import { EvService } from './ev/ev.service';
 import { EvController } from './ev/ev.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { TaskModule } from './task/task.module';
+import { BookModule } from './book/book.module';
+import { BookService } from './book/book.service';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { join } from 'path';
 
 @Module({
   imports: [
+    BookModule,
     ConfigModule.forRoot(),
-    MongooseModule.forRoot(process.env.MONGO_URI!)
-
-    , EmployeeModule, CategoryModule, StudentModule, CustomerModule, TaskModule,
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      sortSchema: true,
+      playground: true,
+    }),
+    MongooseModule.forRoot(process.env.MONGO_URI!),
+    EmployeeModule,
+    CategoryModule,
+    StudentModule,
+    CustomerModule,
+    TaskModule,
+    
   ],
-  controllers: [AppController, UserController, ProductController, EmailController, MynameController, UserRolesController, ExceptionController, DatabaseController, EvController],
-  providers: [AppService, ProductService, EmailService, DatabaseService, EvService],
+  controllers: [
+    AppController,
+    UserController,
+    ProductController,
+    EmailController,
+    MynameController,
+    UserRolesController,
+    ExceptionController,
+    DatabaseController,
+    EvController,
+  ],
+  providers: [
+    AppService,
+    ProductService,
+    EmailService,
+    DatabaseService,
+    EvService,
+  
+  ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(LoggerMiddleware)
+    consumer.apply(LoggerMiddleware);
   }
 }
